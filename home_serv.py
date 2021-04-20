@@ -1,28 +1,55 @@
-import socket
+from socket import *
+import receiveAllData as rAD
 import sys
 
-amount_or_arg = len(sys.argv)
-if amount_or_arg < 2:
-    print("Need to have two arguemnts")
-elif amount_or_arg==2:
-    portnum = sys.argv[1]
-    if portnum.isdigit():
+
+if __name__ == "__main__":
+
+    numOfArguments = len(sys.argv)
+    if numOfArguments == 2:
+        serverPort = sys.argv[1]
+        if serverPort.isdigit():
             print("Server port is in right format")
-            portnum = int(portnum)
+            serverPort = int(serverPort)
+        else:
+            print("Server port needs to be a digit")
+    else:
+        print("Incorrect invocation. Server should be invoked as: "
+              "server.py <server port>")
+        quit()
+
+    serverSocket = socket(AF_INET, SOCK_STREAM)
+
+    print("Server port is :", serverPort)
+    # Bind the socket to the port
+    serverSocket.bind(('', serverPort))
+
+    # Start listening for incoming connections
+    serverSocket.listen(1)
+
+    print("The server is ready to receive...")
+
+    while True:
+
+        connectionSocket, addr = serverSocket.accept()
+
+        print("Accepted and created connectionSocket. address is: ", addr)
+
+        instr = rAD.receive(connectionSocket)
+
+        tmpBuff = ""
+        data = ""
+
+        while len(data) != 40:
+            tmpBuff = connectionSocket.recv(40)
+            if not tmpBuff:
+                break
+            data += tmpBuff
+
+    connectionSocket.close()
+
+    print(data)
 
 
-serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-serverSocket.bind(('', portnum))
-serverSocket.listen(1)
-while True:
-    connectionSocket , addr = serverSocket.accept()
-    tmp = ""
-    data = ""
-    while (data)!=40:
-        tmp= connectionSocket.recv(40)
-        if not tmp:
-            break
-        data+=tmp
-connectionSocket.close()
-print(data)
-quit()
+
+    quit()
