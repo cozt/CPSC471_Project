@@ -1,29 +1,40 @@
 import socket
 
 
-def receive(the_socket):
+def receive(the_socket, size):
 
-    data = ""
-    size_of_file = 0
-    file_size_buffer = ""
-    file_size_buffer = receive_all_data(the_socket, 10)
-    size_of_file = int(file_size_buffer)
-
-    data = receive_all_data(the_socket, size_of_file)
-
-    return data
+      #returns the size of in bytes
+    return sock.recv(size).decode("utf-8")
 
 
 def receive_all_data(the_socket, number_of_bytes):
-    r_buffer = ""
-    temporary = ""
+    # send the file we want to receive
+    sentFile = file.encode()
+    sock.send(sentFile)
 
-    while len(r_buffer) < number_of_bytes:
-        temporary = the_socket.recv(number_of_bytes)
+    # receive the size of the file and convert to decimal
+    acceptSize = sock.recv(40)
+    acceptSize = acceptSize.decode()
+    acceptSize = int(acceptSize)
 
-        if not temporary:
+    # make a temp. variable to hold the incoming data
+    temp = ""
+    while(True):
+        text = sock.recv(40)
+        temp += text.decode()
+        if (len(temp) == acceptSize):
+            sock.send("1".encode())
+            print("THE FILE HAS BEEN ACCEPTED!")
             break
 
-        r_buffer += temporary
+    # open a file path
+    path = os.path.join(cliFolder, file)
+    data = open(path, "w")
+    # write file of recieved data
+    data.write(temp)
 
-    return r_buffer
+    # print to notify the user file size and name
+    print("The name of the file is: " + file)
+    print("The size downloaded is: " + str(acceptSize) + " bytes")
+
+    return 0

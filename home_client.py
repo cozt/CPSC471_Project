@@ -1,9 +1,12 @@
 from socket import *
 import ephemeral
 import sys
-import sendData as sd
-import receiveAllData as rAD
-import subprocess 
+
+
+from recieveAllData import receive, recieve_all_data 
+from sendData import send_data, sendAllData
+import subprocess
+
 
 
 if __name__ == "__main__":
@@ -25,18 +28,39 @@ if __name__ == "__main__":
     print("trying to connect to server")
     clientSocket.connect((serverName, serverPort))
 
-    userInput = input("ftp> ")
+    userInput = input("ftp> ").lower().split()
 
     if userInput.startswith('ls'):
-        print("Now printing out the directory")
-        # Tell the server we want to perform ls
-        subprocess.run('ls',shell = True)
+            send_data(cliSocket, userInput[0])
+
+            # variable for the size of repsonse
+            respSize = recieve(cliSocket, header)
+
+            if (respSize == ""):
+                print("Failed to revcieve correct response")
+            else:
+                response = recieve(cliSocket, int(respSize))
+                print(response)
+
     elif userInput.startswith('get'):
-        subprocess.run('get', shell = True)
+                 if (len(userInput) != 2):
+                print("Please use: get <FILE NAME> (downloads file from the server)")
+            else:
+                send_data(cliSocket, userInput[0])
+                recieve_all_data(cliSocket, userInput[1])
+
     elif userInput.startswith('put'):
-        subprocess.run('put', shell = True)
+                if (len(userInput) != 2):
+                print("Please use: put <FILE NAME> (uploads file to the server)")
+            else:
+                send_data(cliSocket, userInput[0])
+                putFile(cliSocket, server, userInput[1])
+
     elif userInput.startswith('quit'):
-        quit()
+            send_data(cliSocket, userInput[0])
+            cliSocket.close()
+            print("The client connection is now closed.")
+            break
 
     else:
         print("Incorrect invocation. Client should be invoked as: client.py <server machine> <server port>")
