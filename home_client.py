@@ -1,9 +1,9 @@
 from socket import *
-import ephemeral
+import ephermeral
 import sys
 import sendData as sd
 import receiveAllData as rAD
-import subprocess 
+import subprocess
 
 
 if __name__ == "__main__":
@@ -26,7 +26,7 @@ if __name__ == "__main__":
     clientSocket.connect((serverName, serverPort))
 
     userInput = input("ftp> ")
-
+    print(userInput)
     if userInput.startswith('ls'):
         print("Now printing out the directory")
         # Tell the server we want to perform ls
