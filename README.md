@@ -7,7 +7,7 @@ FTP Server and Client applications
 1.  Danny Tzoc - dannytzoc@csu.fullerton.edu
 2.  Garrett Reeve - Garrett.reeve@csu.fullerton.edu
 3.  Nafis Chowdhury - nafis195@csu.fullerton.edu
-4.  Asad Jafri - 
+4.  Asad Jafri - asad.jafri460@csu.fullerton.edu
 
 <br>
 
