@@ -1,12 +1,13 @@
 ## CPSC471 - Computer Communication
 ### Programming Assignment 
+FTP Server and Client applications
 <br>
 
 ### Team Members
-    Danny Tzoc - dannytzoc@csu.fullerton.edu
-    Garrett Reeve - Garrett.reeve@csu.fullerton.edu
-    Nafis Chowdhury - nafis195@csu.fullerton.edu
-    Asad Jafri - 
+1.  Danny Tzoc - dannytzoc@csu.fullerton.edu
+2.  Garrett Reeve - Garrett.reeve@csu.fullerton.edu
+3.  Nafis Chowdhury - nafis195@csu.fullerton.edu
+4.  Asad Jafri - 
 
 <br>
 
