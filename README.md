@@ -1,5 +1,5 @@
 ## CPSC471 - Computer Communication
-### Programming Assignment 
+### Programming Assignment
 FTP Server and Client applications
 <br>
 
