@@ -1,5 +1,5 @@
 from socket import *
-import ephemeral
+import ephermeral
 import sys
 import sendData as sd
 import receiveAllData as rAD
